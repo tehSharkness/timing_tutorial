@@ -48,3 +48,17 @@ timing
 *example*
 *sopc_*
 PLLJ_PLLSPE_INFO.txt # The generated PLL specification file
+
+*.htm
+
+filtref\.asm\.rpt\.htm_files/css/
+
+filtref\.sta\.rpt\.htm_files/js/
+
+filtref\.sta\.rpt\.htm_files/img/
+
+*.png
+
+*.css
+
+*.js

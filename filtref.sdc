@@ -38,8 +38,10 @@ set_time_format -unit ns -decimal_places 3
 # Create Clock
 #**************************************************************
 
-create_clock -name {clk} -period 4.000 -waveform { 0.000 2.000 } [get_ports {clk}]
-create_clock -name {clkx2} -period 4.000 -waveform { 0.000 2.000 } [get_ports {clkx2}]
+# create_clock -name {clk} -period 4.000 -waveform { 0.000 2.000 } [get_ports {clk}]
+# create_clock -name {clkx2} -period 4.000 -waveform { 0.000 2.000 } [get_ports {clkx2}]
+create_clock -name clk -period 20 [get_ports {clk}]
+create_clock -name clkx2 -period 10.000 -waveform {0 6} [get_ports {clkx2}]
 
 
 #**************************************************************
@@ -76,13 +78,13 @@ set_clock_uncertainty -fall_from [get_clocks {clkx2}] -fall_to [get_clocks {clkx
 # Set Input Delay
 #**************************************************************
 
-
+set_input_delay -clock { clk } 2 [get_ports {d[0] d[1] d[2] d[3] d[4] d[5] d[6] d[7] newt reset}]
 
 #**************************************************************
 # Set Output Delay
 #**************************************************************
 
-
+set_output_delay -clock { clk } 1.5 [get_ports {follow yn_out[0] yn_out[1] yn_out[2] yn_out[3] yn_out[4] yn_out[5] yn_out[6] yn_out[7] yvalid}]
 
 #**************************************************************
 # Set Clock Groups
@@ -94,7 +96,8 @@ set_clock_uncertainty -fall_from [get_clocks {clkx2}] -fall_to [get_clocks {clkx
 # Set False Path
 #**************************************************************
 
-set_false_path -from [get_clocks {clk clkx2}] -through [get_pins -compatibility_mode *] -to [get_clocks {clk clkx2}]
+# set_false_path -from [get_clocks {clk clkx2}] -through [get_pins -compatibility_mode *] -to [get_clocks {clk clkx2}]
+set_false_path -from [get_clocks clk] -to [get_clocks clkx2]
 
 
 #**************************************************************
